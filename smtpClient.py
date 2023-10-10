@@ -21,7 +21,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send HELO command and print server response.
     #heloCommand = 'HELO Alice\r\n'
-    clientSocket.send('HELO Alice\r\n'.encode())
+    clientSocket.send(b'HELO Alice\r\n')
     recv1 = clientSocket.recv(1024).decode()
     #print(recv1) 
     #if recv1[:3] != '250':
