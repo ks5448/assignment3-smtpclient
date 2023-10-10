@@ -1,7 +1,7 @@
 from socket import *
 
 
-def smtp_client(port=1025, mailserver='127.0.0.1'):
+def smtp_client(port=25, mailserver='smtp.freesmtpservers.com'):#(port=1025, mailserver='127.0.0.1'):
     msg = "\r\n My message"
     endmsg = "\r\n.\r\n"
 
@@ -29,14 +29,14 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send MAIL FROM command and handle server response.
     # Fill in start
-    mailFromCommand = 'MAIL FROM: <test@client.net>\r\n'
+    mailFromCommand = 'MAIL FROM: <sapcedonkeysajid@gmail.com>\r\n'
     clientSocket.send(mailFromCommand.encode())
     recv2 = clientSocket.recv(1024).decode()
     # Fill in end
 
     # Send RCPT TO command and handle server response.
     # Fill in start
-    rcptToCommand = 'RCPT TO: <user@recipient.net>\r\n'
+    rcptToCommand = 'RCPT TO: <sapcedonkeysajid@gmail.com>\r\n'
     clientSocket.send(rcptToCommand.encode())
     recv3 = clientSocket.recv(1024).decode()
     # Fill in end
@@ -46,35 +46,28 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     dataCommand = 'DATA\r\n'
     clientSocket.send(dataCommand.encode())
     recv4 = clientSocket.recv(1024).decode()
-
-    if recv4[:3] == '354':
-        clientSocket.send(msg.encode())
-        clientSocket.send(endmsg.encode())
-        recv5 = clientSocket.recv(1024).decode()
-
-        if recv5[:3] == '250':
-            clientSocket.send('QUIT\r\n')
     # Fill in end
 
     # Send message data.
     # Fill in start
-    #clientSocket.send(msg.encode())
+    clientSocket.send(msg.encode())
     # Fill in end
 
     # Message ends with a single period, send message end and handle server response.
     # Fill in start
-    #clientSocket.send(endmsg.encode())
-    #recv5 = clientSocket.recv(1024).decode()
+    clientSocket.send(endmsg.encode())
+    recv5 = clientSocket.recv(1024).decode()
     # Fill in end
 
     # Send QUIT command and handle server response.
     # Fill in start
-    #quit_command = 'QUIT\r\n'
-    #clientSocket.send(quit_command.encode())
+    quitCommand = 'QUIT\r\n'
+    clientSocket.send(quitCommand.encode())
     recv6 = clientSocket.recv(1024).decode()
-    clientSocket.close()
+    #clientSocket.close()
     # Fill in end
 
 
 if __name__ == '__main__':
-    smtp_client(1025, '127.0.0.1')
+    smtp_client(25, 'freesmtpservers.com')
+    #smtp_client(1025, '127.0.0.1')
